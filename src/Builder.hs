@@ -16,6 +16,7 @@ import           System.FilePath        (dropTrailingPathSeparator,
 import           System.IO              (IOMode (..), hGetContents, hPutStrLn,
                                          withFile, withFile)
 import           Text.Pandoc.Definition (Meta)
+import Props(disqusPlugin)
 
 process :: (DirFilePath, DirFilePath) -> IO ()
 process (src, dest) = do
@@ -34,7 +35,7 @@ process (src, dest) = do
 createIndexFile :: [BlogPostInfo] -> DirFilePath -> IO ()
 createIndexFile postInfoList (DirFilePath filePath) =
   withFile (dropTrailingPathSeparator filePath </> "index.html") WriteMode $ \writeHandle -> do
-    _ <- hPutStrLn writeHandle $ buildIndexFile postInfoList
+    _ <- hPutStrLn writeHandle $ composeIndexFile postInfoList
     return ()
 
 processPostsDir :: DirFilePath -> DirFilePath -> IO [Either String BlogPostInfo]
@@ -102,7 +103,7 @@ pipeOut relativePath (ValidFilePath inPath, ValidFilePath outPath) =
           let eitherInfo = buildBlogPostInfo relativePath meta
           in case eitherInfo of
                Left err -> return $ Left $ "error processing file " ++ inPath ++ "error: " ++ err
-               Right info -> hPutStrLn writeHandle (replace "$blogPost$" str (blogPostHtmlWrapper info)) >> return (Right info)
+               Right info -> hPutStrLn writeHandle (replace "$disqus_plugin$" disqusPlugin (replace "$blogPost$" str (blogPostHtmlWrapper info))) >> return (Right info)
         Left err -> return $ Left ("error ocurred reading file: " ++ inPath ++ ", error: " ++ err)
 
 fromMaybe :: b -> Maybe a -> Either b a
@@ -111,10 +112,10 @@ fromMaybe b Nothing  = Left b
 
 buildBlogPostInfo :: FilePath -> Meta -> Either String BlogPostInfo
 buildBlogPostInfo relativePath meta = do
-  title <- fromMaybe "no title found" $ extractTitle meta
-  summary <- fromMaybe "no summary found" $ extractSummary meta
-  tags <- fromMaybe "no tags found" $ extractTags meta
-  date <- fromMaybe "no date found" $ extractDate meta
+  title <- fromMaybe "No title found." $ extractTitle meta
+  summary <- fromMaybe "No summary found." $ extractSummary meta
+  tags <- fromMaybe "No tags found." $ extractTags meta
+  date <- fromMaybe "No date found." $ extractDate meta
   poster <- Right $ extractPoster meta
   return
     BlogPostInfo

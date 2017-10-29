@@ -35,7 +35,7 @@ mainContent :: PageType -> Html () -> Html ()
 mainContent pageType content =
   html_ $ do
     head_ $ do
-      title_ "haskworks"
+      title_ $ toHtml brandName
       style_ [type_ "text/css"] $ T.pack tagCSS
       fonts
       css
@@ -43,23 +43,27 @@ mainContent pageType content =
       materializeJS
       meta
     body_ $ do
-      nav_ $ div_ [classes_ ["nav-wrapper", T.pack cardColor]] $ a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] "Hask works"
+      nav_ $ div_ [classes_ ["nav-wrapper", T.pack cardColor]] $ a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] $ toHtml brandName
       section_ [class_ "section"] $ div_ [class_ "container"] content
 
 blogPostHtmlWrapper :: BlogPostInfo -> String
-blogPostHtmlWrapper info = (LT.unpack . renderText . mainContent BlogPost) $
+blogPostHtmlWrapper info = (LT.unpack . renderText . mainContent BlogPost) $ do
   div_ [class_ "row"] $
-  div_ [classes_ ["col", "s12"]] $
-  div_ [classes_ ["card", "z-depth-6", T.pack cardColor, "white-text"]] $
-  div_ [class_ "card-content"] $ do
-  span_ [classes_ ["card-title"]] $ toHtml (title info)
-  div_ [] $ toHtml "$blogPost$"
+    div_ [classes_ ["col", "s12"]] $
+    div_ [classes_ ["card", "z-depth-6", T.pack cardColor, "white-text"]] $
+    div_ [class_ "card-content"] $ do
+    span_ [classes_ ["card-title"]] $ toHtml (title info)
+    div_ [] $ toHtml "$blogPost$"
+  br_ []
+  div_ [class_ "row"] $
+    div_ [classes_ ["col", "s12"]] $
+    div_ [] $ toHtml "$disqus_plugin$"
 
 blogPostHolder :: Html () -> Html ()
 blogPostHolder blogPostHtml = mempty
 
-buildIndexFile :: [BlogPostInfo] -> String
-buildIndexFile = LT.unpack . renderText . mainContent Index. foldl' mappend mempty . fmap buildPostInfo
+composeIndexFile :: [BlogPostInfo] -> String
+composeIndexFile = LT.unpack . renderText . mainContent Index. foldl' mappend mempty . fmap buildPostInfo
 
 buildPostInfo :: BlogPostInfo -> Html ()
 buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =

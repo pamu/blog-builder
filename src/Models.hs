@@ -30,6 +30,8 @@ data BlogPostInfo = BlogPostInfo
   , tags            :: [String]
   } deriving (Show)
 
+data PageType = Index | BlogPost
+
 defaultBlogPostInfo :: BlogPostInfo
 defaultBlogPostInfo =
   BlogPostInfo {relativePostUrl = "", date = "", title = "", summary = "", poster = Nothing, tags = []}

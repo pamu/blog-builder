@@ -8,10 +8,13 @@ cardColor :: String
 cardColor = "indigo darken-4"
 
 textColor :: String
-textColor = "blue-text"
+textColor = "white-text"
 
-highlightSyntax :: String
-highlightSyntax = [r|
+tagTextColor :: String
+tagTextColor = "indigo darken-4-text"
+
+tagCSS :: String
+tagCSS = [r|
 .tag {
   font-size: 8px;
   background-color: white;

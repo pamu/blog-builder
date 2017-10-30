@@ -52,7 +52,7 @@ blogPostHtmlWrapper info = (LT.unpack . renderText . mainContent BlogPost) $ do
     div_ [classes_ ["col", "s12"]] $
     div_ [classes_ ["card", "z-depth-6", T.pack cardColor, "white-text"]] $
     div_ [class_ "card-content"] $ do
-    span_ [classes_ ["card-title"]] $ toHtml (title info)
+    div_ [classes_ ["card-title"]] $ h4_ $ toHtml (title info)
     div_ [] $ toHtml "$blogPost$"
   br_ []
   div_ [class_ "row"] $

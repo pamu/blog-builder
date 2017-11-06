@@ -77,8 +77,9 @@ buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =
       Just imgUrl ->
         div_ [classes_ ["card-image", "responsive-img"]] $ img_ [src_ (T.pack imgUrl)]
     div_ [classes_ ["card-content"]] $ do
-      renderTitle heading
-      div_ [style_ "margin-bottom: 8px;"] $ renderTags tags
+      div_ [class_ "card-title"] $ do
+        renderTitle heading
+        div_ [style_ "margin-bottom: 8px;"] $ renderTags tags
       p_ $ toHtml summary
     div_ [class_ "card-action"] $ a_ [href_ (T.pack postUrl)] "Full story"
   where
@@ -87,4 +88,4 @@ buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =
     renderTags :: [String] -> Html ()
     renderTags tags = div_ $ (foldl' mappend mempty . fmap renderTag) tags
     renderTitle :: String -> Html ()
-    renderTitle heading = div_ $ h5_ [style_ "margin: 4px;"] $ toHtml heading
+    renderTitle heading = div_ $ p_ [style_ "margin: 2px;"] $ toHtml heading

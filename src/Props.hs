@@ -8,7 +8,7 @@ brandName :: String
 brandName = "Haskworks"
 
 cardColor :: String
-cardColor = "deep-purple darken-4"
+cardColor = "light-blue darken-4"
 
 textColor :: String
 textColor = "white-text"

@@ -37,6 +37,8 @@ mainContent pageType content =
     head_ $ do
       title_ $ toHtml brandName
       style_ [type_ "text/css"] $ T.pack tagCSS
+      style_ [type_ "text/css"] $ T.pack codeHighlight
+      style_ [type_ "text/css"] $ T.pack font
       fonts
       css
       jqueryJS
@@ -50,7 +52,7 @@ blogPostHtmlWrapper :: BlogPostInfo -> String
 blogPostHtmlWrapper info = (LT.unpack . renderText . mainContent BlogPost) $ do
   div_ [class_ "row"] $
     div_ [classes_ ["col", "s12"]] $
-    div_ [classes_ ["card", "z-depth-6", T.pack cardColor, "white-text"]] $
+    div_ [classes_ ["card", "z-depth-6", T.pack cardColor, T.pack textColor]] $
     div_ [class_ "card-content"] $ do
     div_ [classes_ ["card-title"]] $ h4_ $ toHtml (title info)
     div_ [] $ toHtml "$blogPost$"
@@ -69,7 +71,7 @@ buildPostInfo :: BlogPostInfo -> Html ()
 buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =
   div_ [class_ "row"] $
   div_ [classes_ ["col", "m3", "s12"]] $
-  div_ [classes_ ["card", "z-depth-6", T.pack cardColor, "white-text"]] $ do
+  div_ [classes_ ["card", "z-depth-6", T.pack cardColor, T.pack textColor]] $ do
     case poster of
       Nothing -> mempty
       Just imgUrl ->

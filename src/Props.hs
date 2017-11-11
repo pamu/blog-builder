@@ -8,19 +8,22 @@ brandName :: String
 brandName = "Haskworks"
 
 cardColor :: String
-cardColor = "light-blue darken-4"
+cardColor = "blue-grey darken-4"
+
+navbarColor :: String
+navbarColor = "blue-grey darken-4"
 
 textColor :: String
 textColor = "white-text"
 
 tagTextColor :: String
-tagTextColor = "indigo-text"
+tagTextColor = "white-text"
 
 font :: String
 font = [r|
-html {
-  font-family: GillSans, Calibri, Trebuchet, sans-serif;
-}
+  p {
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+  }
 |]
 
 codeHighlight :: String
@@ -85,7 +88,7 @@ tagCSS :: String
 tagCSS = [r|
 .tag {
   font-size: 8px;
-  background-color: white;
+  background-color: black;
   border-radius: 1px;
   padding: 2px;
   margin: 4px;

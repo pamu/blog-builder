@@ -16,13 +16,13 @@ jqueryJS :: Html ()
 jqueryJS = script_ [type_ "text/javascript", src_ "https://code.jquery.com/jquery-3.2.1.min.js"] ""
 
 materializeJS :: Html ()
-materializeJS = script_ [type_ "text/javascript", src_ "https://code.jquery.com/jquery-3.2.1.min.js"] ""
+materializeJS = script_ [type_ "text/javascript", src_ "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"] ""
 
 meta :: Html ()
 meta = meta_ [name_ "viewport", content_ "width=device-width, intial-scale=1.0"]
 
 fonts :: Html ()
-fonts = link_ [ rel_ "stylesheet", href_ "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"]
+fonts = link_ [ rel_ "stylesheet", href_ ""]
 
 css :: Html ()
 css = link_ [rel_ "stylesheet", href_ "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"]
@@ -45,7 +45,7 @@ mainContent pageType content =
       materializeJS
       meta
     body_ $ do
-      nav_ $ div_ [classes_ ["nav-wrapper", T.pack cardColor]] $ a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] $ toHtml brandName
+      nav_ $ div_ [classes_ ["nav-wrapper", T.pack navbarColor]] $ a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] $ toHtml brandName
       section_ [class_ "section"] $ div_ [class_ "container"] content
 
 blogPostHtmlWrapper :: BlogPostInfo -> String
@@ -70,12 +70,11 @@ composeIndexFile = LT.unpack . renderText . mainContent Index. foldl' mappend me
 buildPostInfo :: BlogPostInfo -> Html ()
 buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =
   div_ [class_ "row"] $
-  div_ [classes_ ["col", "m3", "s12"]] $
+  div_ [classes_ ["col", "m6", "s12"]] $
   div_ [classes_ ["card", "z-depth-6", T.pack cardColor, T.pack textColor]] $ do
     case poster of
       Nothing -> mempty
-      Just imgUrl ->
-        div_ [classes_ ["card-image", "responsive-img"]] $ img_ [src_ (T.pack imgUrl)]
+      Just imgUrl -> div_ [classes_ ["card-image", "responsive-img"]] $ img_ [src_ (T.pack imgUrl)]
     div_ [classes_ ["card-content"]] $ do
       div_ [class_ "card-title"] $ do
         renderTitle heading
@@ -88,4 +87,4 @@ buildPostInfo (BlogPostInfo postUrl heading date summary poster tags) =
     renderTags :: [String] -> Html ()
     renderTags tags = div_ $ (foldl' mappend mempty . fmap renderTag) tags
     renderTitle :: String -> Html ()
-    renderTitle heading = div_ $ p_ [style_ "margin: 2px;"] $ toHtml heading
+    renderTitle heading = span_ [style_ "margin: 2px;"] $ toHtml heading

@@ -8,13 +8,13 @@ brandName :: String
 brandName = "Haskworks"
 
 cardColor :: String
-cardColor = "blue-grey darken-4"
+cardColor = "white"
 
 navbarColor :: String
-navbarColor = "blue-grey darken-4"
+navbarColor = "black"
 
 textColor :: String
-textColor = "white-text"
+textColor = "black-text"
 
 tagTextColor :: String
 tagTextColor = "white-text"
@@ -44,7 +44,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 .code {
   /*box-shadow: 3px 3px 5px 1px #888;*/
-  border-radius: 10px;
+  border-radius: 2px;
 /*  margin: 1em;*/
 /*  padding: 1em;*/
 /*  border: 1px solid #aaa;*/
@@ -65,13 +65,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 pre {
     /*box-shadow: 3px 3px 5px 1px #888;*/
-    border-radius: 10px;
+    border-radius: 2px;
     /* margin: 1em; */
     /* padding: 1em; */
     /* border: 1px solid #aaa; */
     padding: 0.75em;
     font-size: 12pt;
-    width: 48em;
     color: white;
     line-height: 1.2em;
     /* font-family: sans-serif; */
@@ -99,16 +98,6 @@ disqusPlugin :: String
 disqusPlugin = [r|
 <div id="disqus_thread"></div>
 <script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
 s.src = 'https://haskworks.disqus.com/embed.js';

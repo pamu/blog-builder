@@ -45,7 +45,8 @@ mainContent pageType content =
       materializeJS
       meta
     body_ $ do
-      nav_ $ div_ [classes_ ["nav-wrapper", T.pack navbarColor]] $ a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] $ toHtml brandName
+      nav_ $ div_ [classes_ ["nav-wrapper", T.pack navbarColor, T.pack textColor]] $
+        a_ [href_ $ T.pack $ indexPagePath pageType, classes_ ["brand-logo", "center"]] $ toHtml brandName
       section_ [class_ "section"] $ div_ [class_ "container"] content
 
 blogPostHtmlWrapper :: BlogPostInfo -> String
@@ -54,7 +55,8 @@ blogPostHtmlWrapper info = (LT.unpack . renderText . mainContent BlogPost) $ do
     div_ [classes_ ["col", "s12"]] $
     div_ [classes_ ["card", "z-depth-6", T.pack cardColor, T.pack textColor]] $
     div_ [class_ "card-content"] $ do
-    div_ [classes_ ["card-title"]] $ h4_ $ toHtml (title info)
+    div_ [classes_ ["card-title", "center-align"]] $ h4_ $ toHtml (title info)
+    hr_ []
     div_ [] $ toHtml "$blogPost$"
   br_ []
   div_ [class_ "row"] $
